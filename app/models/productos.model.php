@@ -19,7 +19,7 @@ class ProductosModel {
     public function getProductos($sort = null, $order = 'asc') {
         $pdo = $this->crearConexion();
         $validColumns = ['ID_Producto', 'Nombre_producto', 'Precio']; 
-        $sort = in_array($sort, $validColumns) ? $sort : 'id'; 
+        $sort = in_array($sort, $validColumns) ? $sort : 'ID_Producto'; 
         $order = strtolower($order) === 'desc' ? 'DESC' : 'ASC'; 
         $sql = "SELECT * FROM productos ORDER BY $sort $order";
         $query = $pdo->prepare($sql);

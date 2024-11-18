@@ -21,7 +21,7 @@ class CategoriasModel {
         $pdo = $this->crearConexion();
     
         $validColumns = ['ID_Categoria', 'Nombre_Categoria']; 
-        $sort = in_array($sort, $validColumns) ? $sort : 'id'; 
+        $sort = in_array($sort, $validColumns) ? $sort : 'ID_Categoria'; 
         $order = strtolower($order) === 'desc' ? 'DESC' : 'ASC'; 
     
         $sql = "SELECT * FROM categorias ORDER BY $sort $order";
