@@ -51,20 +51,30 @@ class ProductosModel {
 
 
     //Update producto
+   
     public function updateProducto($idProducto, $nombre, $precio, $categoriaID) {
         $pdo = $this->crearConexion();
-        $sql = "UPDATE productos SET Nombre_producto = $nombre, Precio = $precio, ID_Categoria = $categoriaID WHERE ID_Producto = $idProducto";
+        $sql = "UPDATE productos SET Nombre_producto = :nombre, Precio = :precio, ID_Categoria = :categoriaID WHERE ID_Producto = :idProducto";
         $query = $pdo->prepare($sql);
-        return $query->execute();
+        return $query->execute([
+            ':nombre' => $nombre,
+            ':precio' => $precio,
+            ':categoriaID' => $categoriaID,
+            ':idProducto' => $idProducto
+        ]);
     }
 
     //crar producto
     public function insertarProducto($nombre, $precio, $categoriaID) {
         $pdo = $this->crearConexion();
-        $sql = "INSERT INTO productos (Nombre_producto, Precio, ID_Categoria) VALUES ($nombre, $precio, $categoriaID)";
+        $sql = "INSERT INTO productos (Nombre_producto, Precio, ID_Categoria) VALUES (:nombre, :precio, :categoriaID)";
         $query = $pdo->prepare($sql);
-        return $query->execute();
+        return $query->execute([
+            ':nombre' => $nombre,
+            ':precio' => $precio,
+            ':categoriaID' => $categoriaID
+        ]);
     }
-    
+
     
 }
