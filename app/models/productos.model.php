@@ -19,7 +19,7 @@ class ProductosModel {
     public function getProductos($sort = null, $order = 'asc') {
         $pdo = $this->crearConexion();
         $validColumns = ['ID_Producto', 'Nombre_producto', 'Precio']; 
-        $sort = in_array($sort, $validColumns) ? $sort : 'id'; 
+        $sort = in_array($sort, $validColumns) ? $sort : 'ID_Producto'; 
         $order = strtolower($order) === 'desc' ? 'DESC' : 'ASC'; 
         $sql = "SELECT * FROM productos ORDER BY $sort $order";
         $query = $pdo->prepare($sql);
@@ -53,18 +53,29 @@ class ProductosModel {
     //Update producto
     public function updateProducto($idProducto, $nombre, $precio, $categoriaID) {
         $pdo = $this->crearConexion();
-        $sql = "UPDATE productos SET Nombre_producto = $nombre, Precio = $precio, ID_Categoria = $categoriaID WHERE ID_Producto = $idProducto";
+        $sql = "UPDATE productos SET Nombre_producto = :nombre, Precio = :precio, ID_Categoria = :categoriaID WHERE ID_Producto = :idProducto";
         $query = $pdo->prepare($sql);
-        return $query->execute();
+        return $query->execute([
+            ':nombre' => $nombre,
+            ':precio' => $precio,
+            ':categoriaID' => $categoriaID,
+            ':idProducto' => $idProducto
+        ]);
     }
+    
 
     //crar producto
     public function insertarProducto($nombre, $precio, $categoriaID) {
         $pdo = $this->crearConexion();
-        $sql = "INSERT INTO productos (Nombre_producto, Precio, ID_Categoria) VALUES ($nombre, $precio, $categoriaID)";
+        $sql = "INSERT INTO productos (Nombre_producto, Precio, ID_Categoria) VALUES (:nombre, :precio, :categoriaID)";
         $query = $pdo->prepare($sql);
-        return $query->execute();
+        return $query->execute([
+            ':nombre' => $nombre,
+            ':precio' => $precio,
+            ':categoriaID' => $categoriaID
+        ]);
     }
+    
     
     
 }

@@ -21,7 +21,7 @@ class CategoriasModel {
         $pdo = $this->crearConexion();
     
         $validColumns = ['ID_Categoria', 'Nombre_Categoria']; 
-        $sort = in_array($sort, $validColumns) ? $sort : 'id'; 
+        $sort = in_array($sort, $validColumns) ? $sort : 'ID_Categoria'; 
         $order = strtolower($order) === 'desc' ? 'DESC' : 'ASC'; 
     
         $sql = "SELECT * FROM categorias ORDER BY $sort $order";
@@ -44,19 +44,24 @@ class CategoriasModel {
     // Editar categoría
     public function updateCat($idCategoria, $nombre, $imagen) {
         $pdo = $this->crearConexion();
-        $sql = "UPDATE categorias SET Nombre_Categoria = '$nombre', Imagen_Categoria = '$imagen' WHERE ID_Categoria = $idCategoria"; 
+        $sql = "UPDATE categorias SET Nombre_Categoria = :nombre, Imagen_Categoria = :imagen WHERE ID_Categoria = :idCategoria";
         $query = $pdo->prepare($sql);
-        return $query->execute();
+        return $query->execute([
+            ':nombre' => $nombre,
+            ':imagen' => $imagen,
+            ':idCategoria' => $idCategoria
+        ]);
     }
     
-
     // Crear nueva categoría
     public function insertarCat($nombre, $imagen) {
         $pdo = $this->crearConexion();
-        $sql = "INSERT INTO categorias (Nombre_Categoria, Imagen_Categoria) VALUES ('$nombre', '$imagen')";
+        $sql = "INSERT INTO categorias (Nombre_Categoria, Imagen_Categoria) VALUES (:nombre, :imagen)";
         $query = $pdo->prepare($sql);
-        return $query->execute();
+        return $query->execute([
+            ':nombre' => $nombre,
+            ':imagen' => $imagen
+        ]);
     }
-
 
 }
