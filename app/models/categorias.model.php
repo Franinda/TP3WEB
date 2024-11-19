@@ -42,6 +42,7 @@ class CategoriasModel {
     
 
     // Editar categoría
+  
     public function updateCat($idCategoria, $nombre, $imagen) {
         $pdo = $this->crearConexion();
         $sql = "UPDATE categorias SET Nombre_Categoria = :nombre, Imagen_Categoria = :imagen WHERE ID_Categoria = :idCategoria";
@@ -52,8 +53,13 @@ class CategoriasModel {
             ':idCategoria' => $idCategoria
         ]);
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 8a93426bf2186169b78ecb321e0d4b70ebdd9f30
     // Crear nueva categoría
+ 
     public function insertarCat($nombre, $imagen) {
         $pdo = $this->crearConexion();
         $sql = "INSERT INTO categorias (Nombre_Categoria, Imagen_Categoria) VALUES (:nombre, :imagen)";
@@ -64,4 +70,8 @@ class CategoriasModel {
         ]);
     }
 
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 8a93426bf2186169b78ecb321e0d4b70ebdd9f30
 }

@@ -51,6 +51,7 @@ class ProductosModel {
 
 
     //Update producto
+   
     public function updateProducto($idProducto, $nombre, $precio, $categoriaID) {
         $pdo = $this->crearConexion();
         $sql = "UPDATE productos SET Nombre_producto = :nombre, Precio = :precio, ID_Categoria = :categoriaID WHERE ID_Producto = :idProducto";
@@ -75,7 +76,7 @@ class ProductosModel {
             ':categoriaID' => $categoriaID
         ]);
     }
-    
+
     
     
 }
